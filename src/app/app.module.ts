@@ -5,22 +5,44 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { ProductListComponent } from './product-list/product-list.component';
+import { EpicSevenDbService } from './epic-seven-db.service';
+import { HomeComponent } from './home/home.component';
+import { ArtifactEditorComponent } from './artifact-editor/artifact-editor.component';
+import { ArtifactsComponent } from './artifacts/artifacts.component';
+import { EquipmentComponent } from './equipment/equipment.component';
+import { EquipmentEditorComponent } from './equipment-editor/equipment-editor.component';
+import { TeamBuilderComponent } from './team-builder/team-builder.component';
+import { UnitCardComponent } from './unit-card/unit-card.component';
+import { UnitEditorComponent } from './unit-editor/unit-editor.component';
+import { UnitsComponent } from './units/units.component';
 
 @NgModule({
   imports: [
     BrowserModule,
     ReactiveFormsModule,
     RouterModule.forRoot([
-      { path: '', component: ProductListComponent },
+      { path: '', component: TeamBuilderComponent },
+      { path: 'team-builder', component: TeamBuilderComponent },
+      { path: 'units', component: UnitsComponent },
+      { path: 'artifacts', component: ArtifactsComponent },
+      { path: 'equipment', component: EquipmentComponent },
     ])
   ],
   declarations: [
     AppComponent,
     TopBarComponent,
-    ProductListComponent
+    HomeComponent,
+    ArtifactEditorComponent,
+    ArtifactsComponent,
+    EquipmentComponent,
+    EquipmentEditorComponent,
+    TeamBuilderComponent,
+    UnitCardComponent,
+    UnitEditorComponent,
+    UnitsComponent
   ],
-  bootstrap: [ AppComponent ]
+  bootstrap: [ AppComponent ],
+  providers: [EpicSevenDbService]
 })
 export class AppModule { }
 
