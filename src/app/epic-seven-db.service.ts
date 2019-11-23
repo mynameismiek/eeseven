@@ -61,8 +61,8 @@ export class EpicSevenDbService {
   }
 
   getArtifactIcon(id: string): Observable<Object> {
-    console.log(assetsURL + artifact + id + "/" + Images.icon + png)
-    return;
+    console.log(assetsURL + artifact + id + "/" + Images.icon + png);
+    return this.http.get("http://1x1px.me/FF4D00-0.8.png");
     //return this.http.get(assetsURL + artifact + id + "/" + Images.icon + png);
   }
 }
