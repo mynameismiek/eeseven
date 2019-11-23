@@ -1,0 +1,23 @@
+<h1>
+Artifacts
+</h1>
+
+<table mat-table [dataSource]="artifacts$">
+  <ng-container matColumnDef="image">
+    <th mat-header-cell *matHeaderCellDef> Image </th>
+    <td mat-cell *matCellDef="let artifact"> {{ getIcon(artifact.fileId) }} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Name </th>
+    <td mat-cell *matCellDef="let artifact"> {{artifact.name}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="rarity">
+    <th mat-header-cell *matHeaderCellDef> Rarity </th>
+    <td mat-cell *matCellDef="let artifact"> {{artifact.rarity}}<mat-icon>star</mat-icon> </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

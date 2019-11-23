@@ -1,0 +1,17 @@
+<mat-card class="example-card">
+  <!-- is owned? -->
+  <mat-card-header>
+    <!-- <div mat-card-avatar class="example-header-image"></div> -->
+    <mat-card-title>{{ artifact.name }}</mat-card-title>
+    <mat-card-subtitle>{{ artifact.rarity }} <mat-icon>star</mat-icon></mat-card-subtitle>
+  </mat-card-header>
+  <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of {{ artifact.name }}">
+  <mat-card-content>
+    <p>
+      {{ artifact.loreDescription }}
+    </p>
+  </mat-card-content>
+  <mat-card-actions>
+    <button mat-button>Summon</button>
+  </mat-card-actions>
+</mat-card>

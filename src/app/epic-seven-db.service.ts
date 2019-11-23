@@ -59,4 +59,10 @@ export class EpicSevenDbService {
   getItem(id: string): Observable<Object> {
     return this.http.get(apiURL + item + id);
   }
+
+  getArtifactIcon(id: string): Observable<Object> {
+    console.log(assetsURL + artifact + id + "/" + Images.icon + png)
+    return;
+    //return this.http.get(assetsURL + artifact + id + "/" + Images.icon + png);
+  }
 }
