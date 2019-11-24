@@ -8,4 +8,63 @@
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
+
+  <div fxLayout="row">
+    <table mat-table [dataSource]="heroes$" fxFlex>
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef> Image </th>
+        <td mat-cell *matCellDef="let hero"><img src="https://lorempixel.com/64/64/"/></td>
+      </ng-container>
+
+      <ng-container matColumnDef="rarity">
+        <th mat-header-cell *matHeaderCellDef> Rarity </th>
+        <td mat-cell *matCellDef="let hero"> 
+          <span>{{hero.rarity}}</span>
+          <mat-icon class="star">star</mat-icon>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="element">
+        <th mat-header-cell *matHeaderCellDef> Element </th>
+        <td mat-cell *matCellDef="let hero"><h2> {{hero.element}} </h2></td>
+      </ng-container>
+
+      <ng-container matColumnDef="classType">
+        <th mat-header-cell *matHeaderCellDef> Class </th>
+        <td mat-cell *matCellDef="let hero"><h2> {{hero.classType}} </h2></td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let hero"><h2> {{hero.name}} </h2></td>
+      </ng-container>
+
+      <ng-container matColumnDef="owned">
+        <th mat-header-cell *matHeaderCellDef> Owned </th>
+        <td mat-cell *matCellDef="let hero">
+          <mat-icon class="summon" *ngIf="isOwned(hero.fileId)">check</mat-icon>
+          <mat-icon class="warn" *ngIf="!isOwned(hero.fileId)">remove</mat-icon>
+          <span *ngIf="isOwned(hero.fileId)">{{ ownedCount(hero.fileId) }}</span>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tools">
+        <th mat-header-cell *matHeaderCellDef> Edit </th>
+        <td mat-cell *matCellDef="let hero"> 
+          <button mat-icon-button class="summon" matTooltip="Summon hero" matTooltipPosition="above" (click)="summon(hero)">
+            <mat-icon>eco</mat-icon>
+          </button>
+          <button mat-icon-button matTooltip="Edit hero" matTooltipPosition="above"  *ngIf="isOwned(hero.fileId)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <!-- <button mat-icon-button color="warn" (click)="openConfirmDeleteDialog(hero)" matTooltip="Delete hero" matTooltipPosition="above"  *ngIf="isOwned(hero.fileId)">
+            <mat-icon>delete</mat-icon>
+          </button> -->
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
 </div>

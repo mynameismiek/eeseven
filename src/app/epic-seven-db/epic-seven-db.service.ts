@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { E7dbArtifactQuery } from './e7db-artifact-query';
-import { E7dbHeroData } from './e7db-hero-data';
+import { E7dbHeroQuery } from './e7db-hero-query';
 
 const apiURL = "https://api.epicsevendb.com/api/";
 //schema 1: {:hero|artifact}/{:?_id}/{:?assetType}.{:imageExtension}
@@ -43,13 +43,13 @@ export class EpicSevenDbService {
   }
 
   // api.epicsevendb.com/api/hero/
-  getHeroes(): Observable<Array<E7dbHeroData>> {
-    return this.http.get<Array<E7dbHeroData>>(apiURL + hero);
+  getHeroes(): Observable<E7dbHeroQuery> {
+    return this.http.get<E7dbHeroQuery>(apiURL + hero);
   }
 
   // api.epicsevendb.com/api/hero/_id
-  getHero(id: string): Observable<E7dbHeroData> {
-    return this.http.get<E7dbHeroData>(apiURL + hero + id);
+  getHero(id: string): Observable<E7dbHeroQuery> {
+    return this.http.get<E7dbHeroQuery>(apiURL + hero + id);
   }
 
   // api.epicsevendb.com/api/item/
