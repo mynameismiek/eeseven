@@ -4,6 +4,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
+import { GoogleApiModule, GoogleApiService, GoogleAuthService, NG_GAPI_CONFIG, } from 'ng-gapi';
 
 // Material
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -34,8 +35,27 @@ import { UnitsComponent } from './units/units.component';
 import { ArtifactCardComponent } from './artifact-card/artifact-card.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { UserService } from './user.service';
+import { UserService } from './google-apis/user.service';
 import { SimpleConfirmationDialogComponent } from './simple-confirmation-dialog/simple-confirmation-dialog.component';
+import { GoogleApiDriveService } from './google-apis/google-api-drive.service';
+import { NgGapiClientConfig } from '.googlea-apis/ng-gapi-client-config';
+
+let gapiClientConfig: NgGapiClientConfig = {
+    client_id: "67284234435-gmnl6t5erjgsltso9l2vne1125n139f0.apps.googleusercontent.com",
+    discoveryDocs: [
+      "https://analyticsreporting.googleapis.com/$discovery/rest?version=v4"
+    ],
+    scope: [
+        "https://www.googleapis.com/auth/drive.appdata",
+        "https://www.googleapis.com/auth/analytics.readonly",
+        "https://www.googleapis.com/auth/analytics"
+    ].join(" "),
+    redirect_uri: [
+      "urn:ietf:wg:oauth:2.0:oob",
+      "https://angular-fw8cqq.stackblitz.io",
+      "http://localhost"
+    ].join (" "),
+};
 
 @NgModule({
   imports: [
@@ -52,6 +72,10 @@ import { SimpleConfirmationDialogComponent } from './simple-confirmation-dialog/
       { path: 'equipment', component: EquipmentComponent },
     ]),
     BrowserAnimationsModule,
+    GoogleApiModule.forRoot({
+      provide: NG_GAPI_CONFIG,
+      useValue: gapiClientConfig
+    }),
     HttpClientModule,
     FlexLayoutModule,
     MatCardModule,
@@ -83,7 +107,7 @@ import { SimpleConfirmationDialogComponent } from './simple-confirmation-dialog/
     SimpleConfirmationDialogComponent
   ],
   bootstrap: [ AppComponent ],
-  providers: [EpicSevenDbService, UserService],
+  providers: [EpicSevenDbService, UserService, GoogleApiDriveService],
   entryComponents: [
     SimpleConfirmationDialogComponent,
   ]

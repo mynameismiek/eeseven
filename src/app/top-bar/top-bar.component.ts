@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService }  from '../google-apis/user.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./top-bar.component.css']
 })
 export class TopBarComponent implements OnInit {
+  isLoggedIn$ = false;
 
-  constructor() { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.isLoggedIn$ = this.userService.isLoggedIn();
   }
 
+  doLogin(): void {
+    this.userService.signIn(loggedIn => this.isLoggedIn$ = loggedIn);
+  }
+
+  doLogout(): void {
+    this.userService.signOut();
+  }
 }

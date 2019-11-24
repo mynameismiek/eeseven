@@ -1,16 +1,18 @@
 <mat-toolbar color="primary">
-<a [routerLink]="['/']"><h1>EE7</h1></a>
-<span class="spacer"></span>
-<a [routerLink]="['/team-builder']" class="button"><i class="material-icons">group</i>Team Builder</a>
-<a [routerLink]="['/units']" class="button"><i class="material-icons">person</i>My Units</a>
-<a [routerLink]="['/artifacts']" class="button"><i class="material-icons">smartphone</i>My Artifacts</a>
-<a [routerLink]="['/equipment']" class="button"><i class="material-icons">build</i>My Equipment</a>
-<span class="spacer"></span>
+  <a [routerLink]="['/']"><h1>E7B</h1></a>
 
-<button mat-icon-button [matMenuTriggerFor]="accountMenu"><mat-icon>more_vert</mat-icon></button>
-<mat-menu #accountMenu="matMenu">
-  <button mat-menu-item [routerLink]="['/login']" *ngIf="true">Login</button>
-  <button mat-menu-item [routerLink]="['/login']" *ngIf="">Logout</button>
-</mat-menu>
+  <span class="spacer"></span>
 
+  <button mat-button [routerLink]="['/team-builder']" class="button" *ngIf="isLoggedIn$"><mat-icon>group</mat-icon>Team Builder</button>
+  <button mat-button [routerLink]="['/units']" class="button" *ngIf="isLoggedIn$"><mat-icon>person</mat-icon>My Units</button>
+  <button mat-button [routerLink]="['/artifacts']" class="button" *ngIf="isLoggedIn$"><mat-icon>smartphone</mat-icon>My Artifacts</button>
+  <button mat-button [routerLink]="['/equipment']" class="button" *ngIf="isLoggedIn$"><mat-icon>build</mat-icon>My Equipment</button>
+
+  <span class="spacer"></span>
+
+  <button mat-icon-button [matMenuTriggerFor]="accountMenu"><mat-icon>more_vert</mat-icon></button>
+  <mat-menu #accountMenu="matMenu">
+    <button mat-menu-item (click)="doLogin()" *ngIf="!isLoggedIn$">Login</button>
+    <button mat-menu-item (click)="doLogout()" *ngIf="isLoggedIn$">Logout</button>
+  </mat-menu>
 </mat-toolbar>
