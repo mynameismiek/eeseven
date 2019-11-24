@@ -41,17 +41,16 @@ import { GoogleApiDriveService } from './google-apis/google-api-drive.service';
 import { NgGapiClientConfig } from '.googlea-apis/ng-gapi-client-config';
 
 let gapiClientConfig: NgGapiClientConfig = {
-    client_id: "67284234435-gmnl6t5erjgsltso9l2vne1125n139f0.apps.googleusercontent.com",
+    client_id: "67284234435-65p0ak2ubfuvd08oq7as9oiuppk0hec0.apps.googleusercontent.com",
     discoveryDocs: [
-      "https://analyticsreporting.googleapis.com/$discovery/rest?version=v4"
+      // "https://analyticsreporting.googleapis.com/$discovery/rest?version=v4"
     ],
     scope: [
         "https://www.googleapis.com/auth/drive.appdata",
-        "https://www.googleapis.com/auth/analytics.readonly",
-        "https://www.googleapis.com/auth/analytics"
+        // "https://www.googleapis.com/auth/analytics.readonly",
+        // "https://www.googleapis.com/auth/analytics"
     ].join(" "),
     redirect_uri: [
-      "urn:ietf:wg:oauth:2.0:oob",
       "https://angular-fw8cqq.stackblitz.io",
       "http://localhost"
     ].join (" "),

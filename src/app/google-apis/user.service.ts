@@ -23,6 +23,7 @@ export class UserService {
   }
   
   public signIn(callback: Function): void {
+    console.log("signing in...");
     this.googleAuth.getAuth()
         .subscribe((auth) => {
           console.log("sub " + auth);
@@ -35,8 +36,7 @@ export class UserService {
   }
   
   public isLoggedIn(): boolean {
-    //return sessionStorage.getItem(UserService.SESSION_STORAGE_KEY) != undefined;
-    return true;
+    return sessionStorage.getItem(UserService.SESSION_STORAGE_KEY) != undefined;
   }
 
   private signInSuccessHandler(res: GoogleUser, callback: Function) {
