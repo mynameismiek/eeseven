@@ -3,10 +3,22 @@
 
   <span class="spacer"></span>
 
-  <button mat-button [routerLink]="['/team-builder']" class="button" *ngIf="isLoggedIn$"><mat-icon>group</mat-icon>Team Builder</button>
-  <button mat-button [routerLink]="['/heroes']" class="button" *ngIf="isLoggedIn$"><mat-icon>person</mat-icon>My Heroes</button>
-  <button mat-button [routerLink]="['/artifacts']" class="button" *ngIf="isLoggedIn$"><mat-icon>smartphone</mat-icon>My Artifacts</button>
-  <button mat-button [routerLink]="['/equipment']" class="button" *ngIf="isLoggedIn$"><mat-icon>build</mat-icon>My Equipment</button>
+  <button mat-button [routerLink]="['/team-builder']" class="button" *ngIf="isLoggedIn$">
+    <mat-icon>group</mat-icon>
+    <span fxHide fxShow.gt-sm="true">Team Builder</span>
+  </button>
+  <button mat-button [routerLink]="['/heroes']" class="button" *ngIf="isLoggedIn$">
+    <mat-icon>person</mat-icon>
+    <span fxHide fxShow.gt-sm="true">My Heroes</span>
+  </button>
+  <button mat-button [routerLink]="['/artifacts']" class="button" *ngIf="isLoggedIn$">
+    <mat-icon>smartphone</mat-icon>
+    <span fxHide fxShow.gt-sm="true">My Artifacts</span>
+  </button>
+  <button mat-button [routerLink]="['/equipment']" class="button" *ngIf="isLoggedIn$">
+    <mat-icon>build</mat-icon>
+    <span fxHide fxShow.gt-sm="true">My Equipment</span>
+  </button>
 
   <span class="spacer"></span>
 
