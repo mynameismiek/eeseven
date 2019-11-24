@@ -9,8 +9,9 @@ export class UserService {
 
   constructor(private googleAuth: GoogleAuthService,
               gapiService: GoogleApiService) {
+    let that = this;
     gapiService.onLoad().subscribe(() => {
-      console.log("gapiService loaded");
+      that.loaded = true;
     }, (err) => console.log(err));
   }
   
@@ -23,16 +24,15 @@ export class UserService {
   }
   
   public signIn(callback: Function): void {
-    console.log("signing in...");
     this.googleAuth.getAuth()
         .subscribe((auth) => {
-          console.log("sub " + auth);
           auth.signIn().then(res => this.signInSuccessHandler(res, callback));
         });
   }
 
-  public signOut(): void {
+  public signOut(callback: Function): void {
     sessionStorage.removeItem(UserService.SESSION_STORAGE_KEY);
+    callback(this.isLoggedIn());
   }
   
   public isLoggedIn(): boolean {
@@ -40,7 +40,6 @@ export class UserService {
   }
 
   private signInSuccessHandler(res: GoogleUser, callback: Function) {
-    console.log(res);
     this.user = res;
     sessionStorage.setItem(UserService.SESSION_STORAGE_KEY, res.getAuthResponse().access_token);
     callback(this.isLoggedIn());

@@ -16,10 +16,14 @@ export class TopBarComponent implements OnInit {
   }
 
   doLogin(): void {
-    this.userService.signIn(loggedIn => this.isLoggedIn$ = loggedIn);
+    this.userService.signIn(loggedIn => this.handleLoginOut(loggedIn));
   }
 
   doLogout(): void {
-    this.userService.signOut();
+    this.userService.signOut(loggedIn => this.handleLoginOut(loggedIn));
+  }
+
+  handleLoginOut(loggedIn: boolean): void {
+    this.isLoggedIn$ = loggedIn;
   }
 }
