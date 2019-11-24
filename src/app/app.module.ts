@@ -32,7 +32,7 @@ import { EquipmentEditorComponent } from './equipment-editor/equipment-editor.co
 import { TeamBuilderComponent } from './team-builder/team-builder.component';
 import { UnitCardComponent } from './unit-card/unit-card.component';
 import { UnitEditorComponent } from './unit-editor/unit-editor.component';
-import { UnitsComponent } from './units/units.component';
+import { HeroesComponent } from './heroes/heroes.component';
 import { ArtifactCardComponent } from './artifact-card/artifact-card.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -99,7 +99,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     TeamBuilderComponent,
     UnitCardComponent,
     UnitEditorComponent,
-    UnitsComponent,
+    HeroesComponent,
     ArtifactCardComponent,
     LoginComponent,
     RegisterComponent,

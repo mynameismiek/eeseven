@@ -30,7 +30,7 @@ let artifactData: ArtifactData = [
   styleUrls: ['./artifacts.component.css']
 })
 export class ArtifactsComponent implements OnInit {
-  durationInSeconds = 3;
+  durationInSeconds = 5;
   displayedColumns: string[] = ['image', 'rarity', 'name', 'owned', 'tools'];
   artifacts$;
 

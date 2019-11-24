@@ -9,7 +9,7 @@ import { EquipmentEditorComponent } from './equipment-editor/equipment-editor.co
 import { TeamBuilderComponent } from './team-builder/team-builder.component';
 import { UnitCardComponent } from './unit-card/unit-card.component';
 import { UnitEditorComponent } from './unit-editor/unit-editor.component';
-import { UnitsComponent } from './units/units.component';
+import { HeroesComponent } from './heroes/heroes.component';
 import { ArtifactCardComponent } from './artifact-card/artifact-card.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -22,7 +22,7 @@ const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'team-builder', component: TeamBuilderComponent, canActivate: [LoggedInGuardService] },
-  { path: 'units', component: UnitsComponent, canActivate: [LoggedInGuardService] },
+  { path: 'heroes', component: HeroesComponent, canActivate: [LoggedInGuardService] },
   { path: 'artifacts', component: ArtifactsComponent, canActivate: [LoggedInGuardService] },
   { path: 'equipment', component: EquipmentComponent, canActivate: [LoggedInGuardService] },
 ];
