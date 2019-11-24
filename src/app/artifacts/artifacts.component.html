@@ -18,7 +18,10 @@
 
       <ng-container matColumnDef="rarity">
         <th mat-header-cell *matHeaderCellDef> Rarity </th>
-        <td mat-cell *matCellDef="let artifact"> {{artifact.rarity}}<mat-icon>star</mat-icon> </td>
+        <td mat-cell *matCellDef="let artifact"> 
+          <span>{{artifact.rarity}}</span>
+          <mat-icon>star</mat-icon>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="name">
@@ -29,23 +32,24 @@
       <ng-container matColumnDef="owned">
         <th mat-header-cell *matHeaderCellDef> Owned </th>
         <td mat-cell *matCellDef="let artifact">
-          <mat-icon>check</mat-icon>
-          <mat-icon>remove</mat-icon>
+          <mat-icon *ngIf="isOwned(artifact.fileId)">check</mat-icon>
+          <mat-icon *ngIf="!isOwned(artifact.fileId)">remove</mat-icon>
+          <span *ngIf="isOwned(artifact.fileId)">{{ ownedCount(artifact.fileId) }}</span>
         </td>
       </ng-container>
 
       <ng-container matColumnDef="tools">
         <th mat-header-cell *matHeaderCellDef> Edit </th>
         <td mat-cell *matCellDef="let artifact"> 
-          <button mat-icon-button color="primary" matTooltip="Summon artifact" matTooltipPosition="above">
+          <button mat-icon-button color="primary" matTooltip="Summon artifact" matTooltipPosition="above" (click)="summon(artifact)">
             <mat-icon>eco</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Edit artifact" matTooltipPosition="above">
+          <button mat-icon-button matTooltip="Edit artifact" matTooltipPosition="above"  *ngIf="isOwned(artifact.fileId)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="openConfirmDeleteDialog(artifact)" matTooltip="Delete artifact" matTooltipPosition="above">
+          <!-- <button mat-icon-button color="warn" (click)="openConfirmDeleteDialog(artifact)" matTooltip="Delete artifact" matTooltipPosition="above"  *ngIf="isOwned(artifact.fileId)">
             <mat-icon>delete</mat-icon>
-          </button>          
+          </button> -->
         </td>
       </ng-container>
 

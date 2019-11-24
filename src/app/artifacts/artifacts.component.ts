@@ -1,9 +1,28 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar, MAT_SNACK_BAR_CONFIG } from '@angular/material/snack-bar';
 import { EpicSevenDbService } from '../epic-seven-db/epic-seven-db.service';
 import { E7dbArtifactData } from '../epic-seven-db/e7db-artifact-data';
 import { E7dbArtifactQuery } from '../epic-seven-db/e7db-artifact-query';
 import { SimpleConfirmationDialogComponent } from '../simple-confirmation-dialog/simple-confirmation-dialog.component';
+import { ArtifactData } from '../interfaces/artifact-data';
+import { Artifact } from '../interfaces/artifact';
+import { StatType } from '../interfaces/stat-type';
+
+let artifactData: ArtifactData = [
+  { 
+    fileId: "sira-ren", 
+    level: 12, 
+    maxLevel: 21, 
+    skill: 5, 
+    maxSkill: 8, 
+    limit: 2, 
+    stats: [ 
+      { statType: StatType.atk, value: 69 },
+      { statType: StatType.hp, value: 261 },
+    ]
+  }
+];
 
 @Component({
   selector: 'app-artifacts',
@@ -11,10 +30,13 @@ import { SimpleConfirmationDialogComponent } from '../simple-confirmation-dialog
   styleUrls: ['./artifacts.component.css']
 })
 export class ArtifactsComponent implements OnInit {
+  durationInSeconds = 3;
   displayedColumns: string[] = ['image', 'rarity', 'name', 'owned', 'tools'];
   artifacts$;
 
   constructor(public dialog: MatDialog,
+              public changeRef: ChangeDetectorRef,
+              private snackBar: MatSnackBar,
               private dbService: EpicSevenDbService) { }
 
   ngOnInit() {
@@ -29,6 +51,37 @@ export class ArtifactsComponent implements OnInit {
       console.log(res);
       return res;
     })
+  }
+
+  isOwned(fileId: string): boolean {
+    return artifactData.find((e: ArtifactData) => e.fileId == fileId);
+  }
+
+  ownedCount(fileId: string): number {
+    return artifactData.filter((e: ArtifactData) => e.fileId == fileId).length;
+  }
+
+  summon(artifact: E7dbArtifactData): void {
+    let newArtifact: Artifact = {
+      fileId: artifact.fileId,
+      maxLevel: 15,
+      level: 1,
+      maxSkill: 6,
+      skill: 1,
+      limit: 0,
+      stats: []
+    };
+    artifact.owned = true;
+    artifactData.push(newArtifact);
+    this.openSnackBar(artifact.name);
+    this.changeRef.detectChanges();
+  }
+
+  openSnackBar(artifactName: string): void {
+    this.snackBar.open("Summoned " + artifactName, undefined, {
+      duration: this.durationInSeconds * 1000,
+      panelClass: ['mat-toolbar', 'mat-primary']
+    });
   }
 
   openConfirmDeleteDialog(artifact: E7dbArtifactData): void {

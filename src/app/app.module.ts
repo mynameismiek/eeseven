@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { GoogleApiModule, GoogleApiService, GoogleAuthService, NG_GAPI_CONFIG, } from 'ng-gapi';
 
@@ -16,13 +15,15 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatLabelModule } from '@angular/material/label';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
+// App Components
 import { AppComponent } from './app.component';
+import { AppRouting } from './app.routing';
 import { TopBarComponent } from './top-bar/top-bar.component';
-import { EpicSevenDbService } from './epic-seven-db/epic-seven-db.service';
 import { HomeComponent } from './home/home.component';
 import { ArtifactEditorComponent } from './artifact-editor/artifact-editor.component';
 import { ArtifactsComponent } from './artifacts/artifacts.component';
@@ -35,10 +36,17 @@ import { UnitsComponent } from './units/units.component';
 import { ArtifactCardComponent } from './artifact-card/artifact-card.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { UserService } from './google-apis/user.service';
 import { SimpleConfirmationDialogComponent } from './simple-confirmation-dialog/simple-confirmation-dialog.component';
+
+// App Services
+import { EpicSevenDbService } from './epic-seven-db/epic-seven-db.service';
+import { LoggedInGuardService } from './logged-in-guard.service';
+import { UserService } from './google-apis/user.service';
+
+// Other
 import { GoogleApiDriveService } from './google-apis/google-api-drive.service';
 import { NgGapiClientConfig } from '.googlea-apis/ng-gapi-client-config';
+import { ModalService } from './modal.service';
 
 let gapiClientConfig: NgGapiClientConfig = {
     client_id: "67284234435-65p0ak2ubfuvd08oq7as9oiuppk0hec0.apps.googleusercontent.com",
@@ -60,16 +68,7 @@ let gapiClientConfig: NgGapiClientConfig = {
   imports: [
     BrowserModule,
     ReactiveFormsModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent },
-      { path: 'home', component: HomeComponent },
-      { path: 'login', component: LoginComponent },
-      { path: 'register', component: RegisterComponent },
-      { path: 'team-builder', component: TeamBuilderComponent },
-      { path: 'units', component: UnitsComponent },
-      { path: 'artifacts', component: ArtifactsComponent },
-      { path: 'equipment', component: EquipmentComponent },
-    ]),
+    AppRouting,
     BrowserAnimationsModule,
     GoogleApiModule.forRoot({
       provide: NG_GAPI_CONFIG,
@@ -84,6 +83,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     MatIconModule,
     MatInputModule,
     MatMenuModule,
+    MatSnackBarModule,
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
@@ -106,7 +106,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     SimpleConfirmationDialogComponent
   ],
   bootstrap: [ AppComponent ],
-  providers: [EpicSevenDbService, UserService, GoogleApiDriveService],
+  providers: [EpicSevenDbService, LoggedInGuardService, UserService, GoogleApiDriveService, ModalService],
   entryComponents: [
     SimpleConfirmationDialogComponent,
   ]
