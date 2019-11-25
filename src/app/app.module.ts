@@ -14,6 +14,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatLabelModule } from '@angular/material/label';
+import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTableModule } from '@angular/material/table';
@@ -82,6 +83,7 @@ let gapiClientConfig: NgGapiClientConfig = {
     MatGridListModule,
     MatIconModule,
     MatInputModule,
+    MatListModule,
     MatMenuModule,
     MatSnackBarModule,
     MatTableModule,
@@ -106,8 +108,15 @@ let gapiClientConfig: NgGapiClientConfig = {
     SimpleConfirmationDialogComponent
   ],
   bootstrap: [ AppComponent ],
-  providers: [EpicSevenDbService, LoggedInGuardService, UserService, GoogleApiDriveService, ModalService],
+  providers: [
+    EpicSevenDbService, 
+    LoggedInGuardService, 
+    UserService, 
+    GoogleApiDriveService, 
+    ModalService
+  ],
   entryComponents: [
+    ArtifactEditorComponent,
     SimpleConfirmationDialogComponent,
   ]
 })

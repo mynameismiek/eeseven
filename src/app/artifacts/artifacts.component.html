@@ -44,7 +44,7 @@
           <button mat-icon-button class="summon" matTooltip="Summon artifact" matTooltipPosition="above" (click)="summon(artifact)">
             <mat-icon>eco</mat-icon>
           </button>
-          <button mat-icon-button matTooltip="Edit artifact" matTooltipPosition="above"  *ngIf="isOwned(artifact.fileId)">
+          <button mat-icon-button matTooltip="Edit artifact" matTooltipPosition="above"  *ngIf="isOwned(artifact.fileId)" (click)="doEdit(artifact)">
             <mat-icon>edit</mat-icon>
           </button>
           <!-- <button mat-icon-button color="warn" (click)="openConfirmDeleteDialog(artifact)" matTooltip="Delete artifact" matTooltipPosition="above"  *ngIf="isOwned(artifact.fileId)">

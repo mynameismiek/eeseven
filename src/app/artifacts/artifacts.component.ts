@@ -2,14 +2,27 @@ import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MAT_SNACK_BAR_CONFIG } from '@angular/material/snack-bar';
 import { EpicSevenDbService } from '../epic-seven-db/epic-seven-db.service';
+import { SimpleConfirmationDialogComponent } from '../simple-confirmation-dialog/simple-confirmation-dialog.component';
+import { ArtifactEditorComponent } from '../artifact-editor/artifact-editor.component';
 import { E7dbArtifactData } from '../epic-seven-db/e7db-artifact-data';
 import { E7dbArtifactQuery } from '../epic-seven-db/e7db-artifact-query';
-import { SimpleConfirmationDialogComponent } from '../simple-confirmation-dialog/simple-confirmation-dialog.component';
 import { ArtifactData } from '../interfaces/artifact-data';
 import { Artifact } from '../interfaces/artifact';
 import { StatType } from '../interfaces/stat-type';
 
 let artifactData: ArtifactData = [
+  { 
+    fileId: "abyssal-crown", 
+    level: 12, 
+    maxLevel: 21, 
+    skill: 5, 
+    maxSkill: 8, 
+    limit: 2, 
+    stats: [ 
+      { statType: StatType.atk, value: 69 },
+      { statType: StatType.hp, value: 261 },
+    ]
+  },
   { 
     fileId: "sira-ren", 
     level: 12, 
@@ -75,6 +88,16 @@ export class ArtifactsComponent implements OnInit {
     artifactData.push(newArtifact);
     this.openSnackBar(artifact.name);
     this.changeRef.detectChanges();
+  }
+
+  doEdit(artifact: E7dbArtifactData): void {
+    const dialogRef = this.dialog.open(ArtifactEditorComponent, {
+      width: '80%',
+      data: {
+        artifact: artifact,
+        userArtifacts: artifactData.filter((e: ArtifactData) => e.fileId == artifact.fileId),
+      }
+    });
   }
 
   openSnackBar(artifactName: string): void {
