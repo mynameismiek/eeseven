@@ -12,7 +12,6 @@
     <mat-list-item *ngFor="let uArtifact of userArtifacts$">      
       <div matLine fxLayout="row">
         <h2>{{artifact$.name}}<span *ngIf="uArtifact.enhance > 0"> +{{uArtifact.enhance}}</span></h2>
-        <span fxLayoutAlign="end center">Skill Lv.{{uArtifact.skill}}/{{uArtifact.maxSkill}}</span>
       </div>
       
       <div matLine fxLayout="row">
@@ -22,7 +21,9 @@
           <mat-icon [ngClass]="(uArtifact.limit >= 3) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 4) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 5) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
-        </span>     
+        </span>
+        <span class="spacer"></span>
+        <span fxLayoutAlign="end center">Skill Lv.{{uArtifact.skill}}/{{uArtifact.maxSkill}}</span>
       </div>
       
       <div matLine fxLayout="row">
@@ -31,9 +32,7 @@
           <button mat-icon-button (click)="decreaseLimit(uArtifact)" [disabled]="uArtifact.limit < 1"><mat-icon>remove</mat-icon></button>
           <button mat-icon-button (click)="increaseLimit(uArtifact)" [disabled]="uArtifact.limit > 4"><mat-icon>add</mat-icon></button>
         </span>
-      </div>
-
-      <div matLine fxLayout="row">
+        <span class="spacer"></span>
         <span>Enhance&nbsp;</span>
         <span>
           <button mat-icon-button (click)="decreaseEnhance(uArtifact)" [disabled]="uArtifact.enhance < 1"><mat-icon>remove</mat-icon></button>
@@ -42,15 +41,26 @@
       </div>
 
       <div matLine fxLayoutAlign="space-around center">
-        <!-- atk def hp spd critR critD eff effR unity -->
+        <div *ngIf="isStatEnabled(uArtifact, 'atk')">
+          <mat-icon>favorite</mat-icon>
+          {{getStatValue(uArtifact, 'atk')}}
+        </div>
+        <div *ngIf="isStatEnabled(uArtifact, 'def')">
+          <mat-icon>security</mat-icon>
+          {{getStatValue(uArtifact, 'def')}}
+        </div>
         <div *ngIf="isStatEnabled(uArtifact, 'hp')">
           <mat-icon>favorite</mat-icon>
           {{getStatValue(uArtifact, 'hp')}}
-        </div>       
+        </div>
+        <div *ngIf="isStatEnabled(uArtifact, 'spd')">
+          <mat-icon>favorite</mat-icon>
+          {{getStatValue(uArtifact, 'spd')}}
+        </div>
+        <!-- critR critD eff effR unity -->
       </div>
     </mat-list-item>
-  </mat-list>
-  
+  </mat-list>  
 </div>
 
 <div fxLayout="row">
