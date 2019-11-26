@@ -8,31 +8,40 @@
 </div>
 
 <div mat-dialog-content>
-  <!-- <div fxLayout="row">
-    <img src="https://lorempixel.com/64/64/"/>
-    <h1>{{artifact$.name}}</h1>
-  </div> -->
-
   <mat-list>
     <mat-list-item *ngFor="let uArtifact of userArtifacts$">      
-      <h2 matLine>
-        <span fxLayoutAlign="start center"></span>
-        <span fxLayoutAlign="end center">Lv.{{uArtifact.skill}}/{{uArtifact.maxSkill}}</span>
-      </h2>
-      <p matLine>
+      <div matLine fxLayout="row">
+        <h2>{{artifact$.name}}<span *ngIf="uArtifact.enhance > 0"> +{{uArtifact.enhance}}</span></h2>
+        <span fxLayoutAlign="end center">Skill Lv.{{uArtifact.skill}}/{{uArtifact.maxSkill}}</span>
+      </div>
+      
+      <div matLine fxLayout="row">
         <span> 
           <mat-icon [ngClass]="(uArtifact.limit >= 1) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 2) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 3) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 4) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 5) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
-        </span>
+        </span>     
+      </div>
+      
+      <div matLine fxLayout="row">
+        <span>Limit Break&nbsp;</span>
         <span>
           <button mat-icon-button (click)="decreaseLimit(uArtifact)" [disabled]="uArtifact.limit < 1"><mat-icon>remove</mat-icon></button>
           <button mat-icon-button (click)="increaseLimit(uArtifact)" [disabled]="uArtifact.limit > 4"><mat-icon>add</mat-icon></button>
         </span>
-      </p>
-      <div matLine>
+      </div>
+
+      <div matLine fxLayout="row">
+        <span>Enhance&nbsp;</span>
+        <span>
+          <button mat-icon-button (click)="decreaseEnhance(uArtifact)" [disabled]="uArtifact.enhance < 1"><mat-icon>remove</mat-icon></button>
+          <button mat-icon-button (click)="increaseEnhance(uArtifact)" [disabled]="uArtifact.enhance >= uArtifact.maxEnhance"><mat-icon>add</mat-icon></button>
+        </span>
+      </div>
+
+      <div matLine fxLayoutAlign="space-around center">
         <!-- atk def hp spd critR critD eff effR unity -->
         <div *ngIf="isStatEnabled(uArtifact, 'hp')">
           <mat-icon>favorite</mat-icon>
@@ -41,11 +50,12 @@
       </div>
     </mat-list-item>
   </mat-list>
+  
+</div>
 
-  <div fxLayout="row">
+<div fxLayout="row">
     <span class="spacer"></span>
     <span fxLayoutAlign="end end">
       <button mat-flat-button color="primary" (click)="save()" cdkFocusInitial>SAVE</button>
     </span>
   </div>
-</div>

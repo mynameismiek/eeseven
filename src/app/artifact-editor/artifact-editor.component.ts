@@ -33,12 +33,30 @@ export class ArtifactEditorComponent implements OnInit {
 
   decreaseLimit(uArtifact: Artifact): void {
     uArtifact.limit -= 1;
-    uArtifact.limit = (uArtifact.limit <= 0) ? 0 : uArtifact.limit;
+    uArtifact.maxEnhance -= 3;
+    uArtifact.limit = this.clamp(uArtifact.limit, 0, 5);
+    uArtifact.maxEnhance = this.clamp(uArtifact.limit, 15, 30);
   }
 
   increaseLimit(uArtifact: Artifact): void {
     uArtifact.limit += 1;
-    uArtifact.limit = (uArtifact.limit >= 5) ? 5 : uArtifact.limit;
+    uArtifact.maxEnhance +=3;
+    uArtifact.limit = this.clamp(uArtifact.limit, 0, 5);
+    uArtifact.maxEnhance = this.clamp(uArtifact.limit, 15, 30);
+  }
+
+  decreaseEnhance(uArtifact: Artifact): void {
+    uArtifact.enhance -= 1;
+    uArtifact.enhance = this.clamp(uArtifact.enhance, 0, uArtifact.maxEnhance);
+  }
+
+  increaseEnhance(uArtifact: Artifact): void {
+    uArtifact.enhance += 1;
+    uArtifact.enhance = this.clamp(uArtifact.enhance, 0, uArtifact.maxEnhance);
+  }
+
+  clamp(x: number, min: number, max: number): number {
+    return Math.min(max, Math.max(min, x));
   }
 
   isStatEnabled(uArtifact: Artifact, stat: string): boolean {
@@ -48,7 +66,7 @@ export class ArtifactEditorComponent implements OnInit {
   }
 
   getStatValue(uArtifact: Artifact, stat: string): number {
-    return this.artifact$.stats.max[stat];
+    return Math.round(this.artifact$.stats.base[stat] + ((this.artifact$.stats.max[stat] - this.artifact$.stats.base[stat]) / 30.0) * uArtifact.enhance);
   }
 
   save(): void {

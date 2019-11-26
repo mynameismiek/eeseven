@@ -24,6 +24,18 @@ let artifactData: ArtifactData = [
     ]
   },
   { 
+    fileId: "rosa-hargana", 
+    enhance: 20, 
+    maxEnhance: 30, 
+    skill: 7, 
+    maxSkill: 11, 
+    limit: 2, 
+    stats: [ 
+      { statType: StatType.atk, value: 162 },
+      { statType: StatType.hp, value: 243 },
+    ]
+  },
+  { 
     fileId: "sira-ren", 
     enhance: 12, 
     maxEnhance: 21, 
@@ -78,7 +90,7 @@ export class ArtifactsComponent implements OnInit {
     let newArtifact: Artifact = {
       fileId: artifact.fileId,
       maxEnhance: 15,
-      enhance: 1,
+      enhance: 0,
       maxSkill: 6,
       skill: 1,
       limit: 0,
