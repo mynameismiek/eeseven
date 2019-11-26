@@ -2,10 +2,10 @@ import { Stat } from './stat';
 
 export interface Artifact {
   fileId: string;
-  maxLevel: number;
-  level: number;
-  maxSkill: number;
-  skill: number;
   limit: number;
+  maxEnhance: number;
+  enhance: number;
+  maxSkill: number;
+  skill: number;  
   stats: Array<Stat>;
 }

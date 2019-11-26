@@ -1,5 +1,6 @@
 <div fxLayout="row">
-  <h2 mat-dialog-title>Edit Artifact</h2>
+  <img matListAvatar src="https://lorempixel.com/64/64/" alt="...">
+  <h1 mat-dialog-title>{{artifact$.name}}</h1>
   <span class="spacer"></span>
   <span fxLayoutAlign="end start">
     <button mat-icon-button color="warn" (click)="onNoClick()"><mat-icon>clear</mat-icon></button>
@@ -13,26 +14,31 @@
   </div> -->
 
   <mat-list>
-    <mat-list-item *ngFor="let uArtifact of userArtifacts$">
-      <img matListAvatar src="https://lorempixel.com/64/64/" alt="...">
-      <h3 matLine>
-        <span fxLayoutAlign="start center">{{artifact$.name}}</span>
-        <span fxLayoutAlign="end center">Lv.{{uArtifact.level}}/{{uArtifact.maxLevel}}</span>
-      </h3>
+    <mat-list-item *ngFor="let uArtifact of userArtifacts$">      
+      <h2 matLine>
+        <span fxLayoutAlign="start center"></span>
+        <span fxLayoutAlign="end center">Lv.{{uArtifact.skill}}/{{uArtifact.maxSkill}}</span>
+      </h2>
       <p matLine>
-        <span>Limit</span>
         <span> 
           <mat-icon [ngClass]="(uArtifact.limit >= 1) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 2) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 3) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
           <mat-icon [ngClass]="(uArtifact.limit >= 4) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
-          <mat-icon [ngClass]="(uArtifact.limit >= 5) ? 'limitFull' : 'limitEmpty'">remove</mat-icon>
+          <mat-icon [ngClass]="(uArtifact.limit >= 5) ? 'limitFull' : 'limitEmpty'">label_important</mat-icon>
         </span>
         <span>
-          <button mat-button (click)="decreaseLimit(uArtifact)" [disabled]="uArtifact.limit < 1"><mat-icon>remove</mat-icon></button>
-          <button mat-button (click)="increaseLimit(uArtifact)" [disabled]="uArtifact.limit > 4"><mat-icon>add</mat-icon></button>
+          <button mat-icon-button (click)="decreaseLimit(uArtifact)" [disabled]="uArtifact.limit < 1"><mat-icon>remove</mat-icon></button>
+          <button mat-icon-button (click)="increaseLimit(uArtifact)" [disabled]="uArtifact.limit > 4"><mat-icon>add</mat-icon></button>
         </span>
       </p>
+      <div matLine>
+        <!-- atk def hp spd critR critD eff effR unity -->
+        <div *ngIf="isStatEnabled(uArtifact, 'hp')">
+          <mat-icon>favorite</mat-icon>
+          {{getStatValue(uArtifact, 'hp')}}
+        </div>       
+      </div>
     </mat-list-item>
   </mat-list>
 

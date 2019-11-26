@@ -5,3 +5,8 @@
 .limitFull {
   color: dodgerblue;
 }
+
+button + .plusminus {
+  height: 16px;
+  width: 16px;
+}

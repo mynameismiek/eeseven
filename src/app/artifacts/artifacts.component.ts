@@ -13,8 +13,8 @@ import { StatType } from '../interfaces/stat-type';
 let artifactData: ArtifactData = [
   { 
     fileId: "abyssal-crown", 
-    level: 12, 
-    maxLevel: 21, 
+    enhance: 12, 
+    maxEnhance: 21, 
     skill: 5, 
     maxSkill: 8, 
     limit: 2, 
@@ -25,8 +25,8 @@ let artifactData: ArtifactData = [
   },
   { 
     fileId: "sira-ren", 
-    level: 12, 
-    maxLevel: 21, 
+    enhance: 12, 
+    maxEnhance: 21, 
     skill: 5, 
     maxSkill: 8, 
     limit: 2, 
@@ -77,8 +77,8 @@ export class ArtifactsComponent implements OnInit {
   summon(artifact: E7dbArtifactData): void {
     let newArtifact: Artifact = {
       fileId: artifact.fileId,
-      maxLevel: 15,
-      level: 1,
+      maxEnhance: 15,
+      enhance: 1,
       maxSkill: 6,
       skill: 1,
       limit: 0,
