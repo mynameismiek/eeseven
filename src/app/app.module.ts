@@ -17,6 +17,7 @@ import { MatLabelModule } from '@angular/material/label';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -86,10 +87,12 @@ let gapiClientConfig: NgGapiClientConfig = {
     MatListModule,
     MatMenuModule,
     MatSnackBarModule,
+    MatSortModule,
     MatTableModule,
     MatToolbarModule,
     MatTooltipModule,
   ],
+  exports: [ MatSortModule ],
   declarations: [
     AppComponent,
     TopBarComponent,

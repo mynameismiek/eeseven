@@ -4,20 +4,20 @@
     <span class="spacer"></span>
     <mat-form-field appearance="outline" fxFlex="40%">
       <mat-label>Search artifacts...</mat-label>
-      <input matInput placeholder="artifact name">
+      <input matInput placeholder="artifact name" (keyup)="doFilter($event.target.value)">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
   </div>
     
   <div fxLayout="row">
-    <table mat-table [dataSource]="artifacts$" fxFlex>
+    <mat-table [dataSource]="dataSource" fxFlex matSort>
       <ng-container matColumnDef="image">
         <th mat-header-cell *matHeaderCellDef> Image </th>
         <td mat-cell *matCellDef="let artifact"><img src="https://lorempixel.com/64/64/"/></td>
       </ng-container>
 
       <ng-container matColumnDef="rarity">
-        <th mat-header-cell *matHeaderCellDef> Rarity </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Rarity </th>
         <td mat-cell *matCellDef="let artifact"> 
           <span>{{artifact.rarity}}</span>
           <mat-icon class="star">star</mat-icon>
@@ -25,12 +25,20 @@
       </ng-container>
 
       <ng-container matColumnDef="name">
-        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
         <td mat-cell *matCellDef="let artifact"><h2> {{artifact.name}} </h2></td>
       </ng-container>
 
+      <ng-container matColumnDef="exclusive">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Class </th>
+        <td mat-cell *matCellDef="let artifact">
+          <span *ngIf="artifact.exclusive.length > 0"> {{artifact.exclusive[0]}} </span>
+          <mat-icon *ngIf="artifact.exclusive.length < 1">remove</mat-icon>
+        </td>
+      </ng-container>
+
       <ng-container matColumnDef="owned">
-        <th mat-header-cell *matHeaderCellDef> Owned </th>
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Owned </th>
         <td mat-cell *matCellDef="let artifact">
           <mat-icon class="summon" *ngIf="isOwned(artifact.fileId)">check</mat-icon>
           <mat-icon class="warn" *ngIf="!isOwned(artifact.fileId)">remove</mat-icon>
@@ -55,6 +63,6 @@
 
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
+    </mat-table>
   </div>
 </div>

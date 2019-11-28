@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, Inject, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MAT_SNACK_BAR_CONFIG } from '@angular/material/snack-bar';
+import { MatSort, MatTableDataSource } from '@angular/material';
 import { EpicSevenDbService } from '../epic-seven-db/epic-seven-db.service';
 import { SimpleConfirmationDialogComponent } from '../simple-confirmation-dialog/simple-confirmation-dialog.component';
 import { ArtifactEditorComponent } from '../artifact-editor/artifact-editor.component';
@@ -54,10 +55,12 @@ let artifactData: ArtifactData = [
   templateUrl: './artifacts.component.html',
   styleUrls: ['./artifacts.component.css']
 })
-export class ArtifactsComponent implements OnInit {
+export class ArtifactsComponent implements OnInit, AfterViewInit {
   durationInSeconds = 5;
-  displayedColumns: string[] = ['image', 'rarity', 'name', 'owned', 'tools'];
+  displayedColumns: string[] = ['image', 'rarity', 'name', 'exclusive', 'owned', 'tools'];
   artifacts$;
+  dataSource = new MatTableDataSource<ArtifactData>();
+  @ViewChild('MatSort', {static: false}) sort: MatSort;
 
   constructor(public dialog: MatDialog,
               public changeRef: ChangeDetectorRef,
@@ -68,7 +71,16 @@ export class ArtifactsComponent implements OnInit {
     this.dbService.getArtifacts().subscribe((query: E7dbArtifactQuery) => {
       console.log(query);
       this.artifacts$ = query.results;
+      this.dataSource.data = this.artifacts$;
     });
+  }
+
+  ngAfterViewInit(): void {
+    this.dataSource.sort = this.sort;
+  }
+
+  doFilter(value: string) {
+    this.dataSource.filter = value.trim().toLocaleLowerCase();
   }
 
   getIcon(id: string): Blob {
